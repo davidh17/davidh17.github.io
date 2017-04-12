@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Find home at Chicago">
+    <meta name="author" content="David Hormaza">
+    <title>Chicago's Home Searcher</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+    <link href="css/styles.css" rel="stylesheet" type="text/css" media="all" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/tutorial.css" type="text/css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js" type="text/javascript"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+
+    <!-- local scripts-->
+    <script src="js/javascript.js" type="text/javascript"></script>
+    <script src="js/rent.js" type="text/javascript"></script>
+    <script src="js/results.js" type="text/javascript"></script>
+
+
+</head>
+
+<body class="doc">
+    <center>
+
+        <span class="glyphicon glyphicon-education" aria-hidden="true"> </span>
+
+        <h1 class="title" onclick="window.location = 'index.html';"> CHICAGO'S HOME SEARCHER</h1>
+        <h6 class="title">  for students at University of Illinois   </h6>
+
+        <div class="video-container">
+            <video autoplay loop class="fillWidth visible-lg">
+                <source src="videos/Chicago.mp4" type="video/mp4; " /> Your browser does not support the video tag.
+            </video>
+
+        </div>
+
+        <div>
+            <h1 class="text">
+              Find a good place to live!
+        </h1>
+        </div>
+
+        <span class="glyphicon glyphicon-home blue" aria-hidden="true"> </span>
+
+        <div>
+            <h1 class="subtext">
+            Trough this website, you can find the best options of renting places close to University of Illinois.
+        </h1>
+        </div>
+
+        <div>
+            <h1 class="text">
+              Choose between safety and profitability, or find a balance between both aspects
+        </h1>
+        </div>
+
+        <span class="glyphicon glyphicon-stats purple" aria-hidden="true"> </span>
+
+        <div>
+            <h1 class="subtext">
+            Thanks to the processing of open data provided by the US government, you can know the best places to make your university experience much better, considering the following aspects:
+        </h1>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3"><span class="glyphicon glyphicon-usd green" aria-hidden="true"> </span>
+                <br>
+                <br>
+                <h1 class="subtext2">Affordability </h1>
+
+            </div>
+            <div class="col-md-3"><span class="glyphicon glyphicon-ok-circle orange" aria-hidden="true"> </span>
+                <br>
+                <br>
+                <h1 class="subtext2">Safety </h1></div>
+            <div class="col-md-3"><span class="glyphicon glyphicon-heart red" aria-hidden="true"> </span>
+                <br>
+                <br>
+                <h1 class="subtext2">Entertainment </h1></div>
+            <div class="col-md-3"><span class="glyphicon glyphicon-road black " aria-hidden="true"> </span>
+                <br>
+                <br>
+                <h1 class="subtext2">Transport </h1></div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div>
+            <h1 class="text">
+              Get started now!
+        </h1>
+        </div>
+
+
+        <div class="col-sm-7 col-md-7" id="map_container">
+            <div id="map"></div>
+        </div>
+
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTvijy35GqBdqcFMAsr-5lhbXmIKIzcug&callback=initMap"></script>
+
+
+
+        <div class="col-md-6">
+            <h1 class="subtext3">Starting Point </h1>
+            <h1 class="subtext4"> The marker shows the location of the Department of Computer Science at University of Illinois in Chicago. </h1>
+            <h1 class="subtext3">Let's search! </h1>
+            <h1 class="subtext4"> You can view all of the rental sites available for you in Chicago on the map, by pressing the button below: </h1>
+            <button type="button" onclick="showRentPlaces()" class="btn btn-default" id="but1">
+
+                Show all renting places
+            </button>
+
+            <h1 class="subtext4"> Or select the priority parameter to search for rental sites, and then, press the button below. </h1>
+            <select id="Ultra" onchange="run()">
+                <!--Call run() function-->
+                <option value="0">Select an option please</option>
+                <option value="1">Safety</option>
+                <option value="2">Rental price</option>
+            </select>
+            <br>
+            <br>
+            <button type="button" class="btn btn-default" id="but2" onclick="showResults()">
+                <span class="glyphicon glyphicon-search"></span> Search
+            </button>
+
+        </div>
+
+
+    </center>
+
+    <br>
+    <br>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+</body>
+
+</html>

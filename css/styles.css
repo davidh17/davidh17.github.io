@@ -1,0 +1,271 @@
+/*This is the stylesheet for the IronHacks Project*/
+
+body.doc {
+    margin: 0;
+    background-color: white;
+}
+
+@charset "UTF-8";
+@font-face {
+    font-family: MODERNE SANS;
+    src: url('../fonts/MODERNE SANS.TTF');
+}
+
+.glyphicon.glyphicon-education {
+    font-size: 80px;
+}
+
+.glyphicon.glyphicon-home {
+    font-size: 60px;
+}
+
+.glyphicon.glyphicon-stats {
+    font-size: 60px;
+}
+
+.glyphicon.glyphicon-usd {
+    font-size: 60px;
+}
+
+.glyphicon.glyphicon-ok-circle {
+    font-size: 60px;
+}
+
+.glyphicon.glyphicon-heart {
+    font-size: 60px;
+}
+
+.glyphicon.glyphicon-road {
+    font-size: 60px;
+}
+
+.brown {
+    color: #835C3B;
+}
+
+.red {
+    color: #FF0000;
+}
+
+.green {
+    color: darkolivegreen;
+}
+
+.blue {
+    color: cornflowerblue;
+}
+
+.purple {
+    color: rebeccapurple;
+}
+
+.orange {
+    color: darkorange;
+}
+
+.black {
+    color: black;
+}
+
+h1.title {
+    font-family: MODERNE SANS;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: normal;
+    color: #000000;
+    text-align: center;
+    min-width: 20px;
+    max-width: 800px;
+    cursor: pointer;
+}
+
+h1.text {
+    font-family: MODERNE SANS;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: normal;
+    color: #000000;
+    text-align: center;
+    min-width: 20px;
+    max-width: 600px;
+    margin-bottom: 40px;
+}
+
+h1.subtext {
+    font-family: MODERNE SANS;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: normal;
+    color: #808080;
+    text-align: center;
+    min-width: 20px;
+    max-width: 600px;
+    margin-bottom: 100px;
+}
+
+h1.subtext2 {
+    font-family: MODERNE SANS;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: normal;
+    color: #000000;
+    text-align: center;
+    min-width: 20px;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+h1.subtext3 {
+    font-family: MODERNE SANS;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: normal;
+    color: darkred;
+    text-align: center;
+    min-width: 20px;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+h1.subtext4 {
+    font-family: MODERNE SANS;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: normal;
+    color: #808080;
+    text-align: center;
+    min-width: 20px;
+    max-width: 600px;
+    margin-bottom: 30px;
+}
+
+h1.subtext5 {
+    font-family: MODERNE SANS;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: normal;
+    color: #000000;
+    text-align: center;
+    min-width: 20px;
+    max-width: 260px;
+    margin-bottom: 10px;
+}
+
+h1.subtext6 {
+    font-family: MODERNE SANS;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: normal;
+    color: #808080;
+    text-align: center;
+    min-width: 20px;
+    max-width: 600px;
+    margin-bottom: 5px;
+    margin-top: 0px;
+}
+
+h1.subtext7 {
+    font-family: MODERNE SANS;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: normal;
+    color: #000000;
+    text-align: center;
+    min-width: 20px;
+    max-width: 500px;
+    margin-bottom: 25px;
+    margin-top: 0px;
+}
+
+h6.title {
+    font-family: MODERNE SANS;
+    font-size: 25px;
+    font-style: italic;
+    font-weight: normal;
+    color: #808080;
+    text-align: center;
+    min-width: 20px;
+    max-width: 800px;
+    margin-bottom: 80px;
+}
+
+.video-container {
+    top: 0%;
+    left: 0%;
+    height: 100%;
+    width: 100%;
+    overflow: visible;
+    margin-bottom: 90px;
+}
+
+video.fillWidth {
+    width: 100%;
+}
+
+#map {
+    margin-top: 30px;
+    position: absolute;
+    height: 500px;
+    width: 80%;
+    padding: 2px;
+    margin-left: 85%;
+    display: block;
+}
+
+.col-md-6 {
+    height: 200px;
+    padding-top: 0px;
+    margin-top: 40px;
+}
+
+.col-md-5 {
+    height: 150px;
+    padding-top: 0px;
+    margin-top: 5px;
+    margin-left: 50px;
+}
+
+#Ultra {
+    font-size: 20px;
+}
+
+#Ultra2 {
+    font-size: 15px;
+}
+
+#but1,
+#but2 {
+    font-size: 20px;
+}
+
+#but4:hover {
+    background: midnightblue;
+    border-color: midnightblue;
+}
+
+#but5 {
+    background: saddlebrown;
+    border-color: saddlebrown;
+}
+
+
+
+#but3:hover {
+    background: green;
+    border-color: darkgreen;
+}
+
+#btn1 {
+    position: relative;
+    margin-top: 580px;
+    margin-right: 550px;
+}
+
+#indicator {
+    margin: 0px;
+}
+
+#indicator:hover {
+    color: darkred;
+    cursor: pointer;
+}
