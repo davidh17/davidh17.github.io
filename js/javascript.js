@@ -1,9 +1,11 @@
 //Javascript for the project
 
+//run functions
 function initialize() {
+    saveRentPlaces();
     saveCrimes();
     savePoliceStations();
-    saveRentPlaces();
+    saveParks();
     determineSafety();
     saveDistance();
     saveTrafficRegions();
@@ -41,12 +43,9 @@ function initMap() {
 var elevator;
 var map;
 // 2-level array 
-var arrayPoliceStations, arrayCrimes = [];
+var arrayPoliceStations = [];
+var arrayCrimes = [];
 
-
-String.prototype.capitalizeFirstLetter = function () {
-    return this.charAt(0).toUpperCase() + this.slice(1);
-};
 
 //save police stations
 function savePoliceStations() {
@@ -69,9 +68,10 @@ function savePoliceStations() {
             var text = myArr;
             json = JSON.parse(text);
 
-            //information of the markets 
 
             for (var i = 0; i < 23; i++) {
+
+
                 var dataArray = [];
                 //latitude - 0
                 dataArray.push(json.data[i][20]);
@@ -92,7 +92,9 @@ function savePoliceStations() {
                 //zip - 8
                 dataArray.push(json.data[i][13][0]);
 
+
                 arrayPoliceStations.push(dataArray);
+
             };
 
 
@@ -121,9 +123,6 @@ function saveCrimes() {
             var myArr = xmlhttp.responseText;
             var text = myArr;
             json = JSON.parse(text);
-            //alert(json.data[1][1]);
-
-            //information of the markets 
 
             for (var i = 0; i < 965; i++) {
                 var dataArray = [];
@@ -199,24 +198,52 @@ function determineSafety() {
 
 function showSafestPlaces(numberPlaces) {
 
+    determineSafety();
+
+
+
+    var infowindow = new google.maps.InfoWindow();
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 10,
+        center: new google.maps.LatLng(41.8708, -87.6505)
+    });
+
+    var marker1 = new google.maps.Marker({
+        position: new google.maps.LatLng(41.8708, -87.6505),
+        map: map,
+        title: 'C.S Dept U. of Illinois',
+        icon: "images/univ.png"
+
+    });
+
+    function placeMarker(loc) {
+        var latLng = new google.maps.LatLng(loc[0], loc[1]);
+        var marker = new google.maps.Marker({
+            position: latLng,
+            map: map,
+            icon: "images/apt-sf.png",
+            title: loc[3]
+
+        });
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.close(); // Close previously opened infowindow
+            infowindow.setContent('<div id="content">' +
+                '<div id="siteNotice">' +
+                '</div>' + '<div>' +
+                '<img src="images/h1.png" width="50px">' + '</div>' +
+                '<h1 class="subtext2" id="textmap">' + loc[3] + '</h1>' +
+                '<div id="bodyContent">' +
+                '<p class="titlestyle">' + 'Property Manager: ' + '<tit1>' + loc[2] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Rent Price: ' + '<tit1>' + '<b>' + '$' + '</b>' + loc[4] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Bedrooms: ' + '<tit1>' + loc[5] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Baths: ' + '<tit1>' + loc[6] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Area: ' + '<tit1>' + loc[7] + ' sqft' + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Contact number: ' + '<tit1>' + loc[8] + '</tit1>' + '</p>' + '</div>' +
+                '</div>');
+            infowindow.open(map, marker);
+        });
+    }
+
+    // ITERATE ALL LOCATIONS
 
 
     for (var i = 0; i < numberPlaces; i++) {
-        var myLatLng = {
-            lat: arrayRentPlaces[i][0],
-            lng: arrayRentPlaces[i][1]
-
-        };
-
-
-
-        var marker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            title: arrayRentPlaces[i][3],
-            icon: 'images/apt-sf.png'
-
-        });
+        placeMarker(arrayRentPlaces[i]);
     }
 
 
@@ -234,20 +261,48 @@ function showCheapestPlaces(numberPlaces) {
     });
 
 
-    for (var i = 0; i < numberPlaces; i++) {
-        var myLatLng = {
-            lat: arrayRentPlaces[i][0],
-            lng: arrayRentPlaces[i][1]
+    var infowindow = new google.maps.InfoWindow(); /* SINGLE */
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 10,
+        center: new google.maps.LatLng(41.8708, -87.6505)
+    });
 
-        };
+    var marker1 = new google.maps.Marker({
+        position: new google.maps.LatLng(41.8708, -87.6505),
+        map: map,
+        title: 'C.S Dept U. of Illinois',
+        icon: "images/univ.png"
 
+    });
+
+    function placeMarker(loc) {
+        var latLng = new google.maps.LatLng(loc[0], loc[1]);
         var marker = new google.maps.Marker({
-            position: myLatLng,
+            position: latLng,
             map: map,
-            title: arrayRentPlaces[i][3],
-            icon: 'images/apt-pr.png'
+            icon: "images/apt-pr.png",
+            title: loc[3]
 
         });
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.close(); // Close previously opened infowindow
+            infowindow.setContent('<div id="content">' +
+                '<div id="siteNotice">' +
+                '</div>' + '<div>' +
+                '<img src="images/h1.png" width="50px">' + '</div>' +
+                '<h1 class="subtext2" id="textmap">' + loc[3] + '</h1>' +
+                '<div id="bodyContent">' +
+                '<p class="titlestyle">' + 'Property Manager: ' + '<tit1>' + loc[2] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Rent Price: ' + '<tit1>' + '<b>' + '$' + '</b>' + loc[4] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Bedrooms: ' + '<tit1>' + loc[5] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Baths: ' + '<tit1>' + loc[6] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Area: ' + '<tit1>' + loc[7] + ' sqft' + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Contact number: ' + '<tit1>' + loc[8] + '</tit1>' + '</p>' + '</div>' +
+                '</div>');
+            infowindow.open(map, marker);
+        });
+    }
+
+    // ITERATE ALL LOCATIONS
+
+
+    for (var i = 0; i < numberPlaces; i++) {
+        placeMarker(arrayRentPlaces[i]);
     }
 
 
@@ -295,8 +350,6 @@ function saveTrafficRegions() {
             var myArr = xmlhttp.responseText;
             var text = myArr;
             json = JSON.parse(text);
-            //information of the markets 
-
             for (var i = 0; i < 29; i++) {
                 var dataArray = [];
                 //latitude - south - 0
@@ -435,16 +488,31 @@ function animateCircle(line, velocity) {
     }, 20);
 }
 
-//change text in a button
-
+//change text in buttons
 
 
 function changeText(id) {
 
     var content = document.getElementById(id).innerHTML;
+    fieldContentSites = document.getElementById("Ultra2").value;
+    fieldContentDistance = document.getElementById("Ultra3").value;
+
+    if (fieldContentSites == "0") {
+        alert("Please enter the number of rental sites you want to search in the top field");
+        return;
+    }
+
+
+
+    if (fieldContentDistance == "0") {
+        alert("Please fill in the required field");
+        return;
+    }
+
+
 
     if (content == "Show Traffic") {
-        safetyQuery();
+
 
         drawTrafficRegions();
         document.getElementById(id).innerHTML = "Hide Traffic";
@@ -459,6 +527,51 @@ function changeText(id) {
 
 
 }
+
+function changeText2(id) {
+    document.getElementById(id).innerHTML = "Show Traffic";
+
+}
+
+
+function changeText3(id) {
+
+    var content = document.getElementById(id).innerHTML;
+    fieldContentSites = document.getElementById("Ultra2").value;
+    fieldContentDistance = document.getElementById("Ultra3").value;
+
+    if (fieldContentSites == "0") {
+        alert("Please enter the number of rental sites you want to search in the top field");
+        return;
+    }
+
+
+
+    if (fieldContentDistance == "0") {
+        alert("Please fill in the required field");
+        return;
+    }
+
+    if (content == "Show Traffic") {
+
+
+        profitabilityQuery();
+        drawTrafficRegions();
+        document.getElementById(id).innerHTML = "Hide Traffic";
+
+    } else {
+        profitabilityQuery();
+
+        document.getElementById(id).innerHTML = "Show Traffic";
+
+    }
+
+
+
+}
+
+
+//determine value from traffic speed field
 
 function determineSpeed(value) {
 
@@ -493,10 +606,7 @@ function determineSpeed(value) {
 }
 
 
-function changeText2(id) {
-    document.getElementById(id).innerHTML = "Show Traffic";
 
-}
 
 //determine traffic in the area of a rental place
 
@@ -511,3 +621,216 @@ function determineTrafficSpeed(latitude, longitude) {
 
 
 }
+// save Parks in Chicago
+
+var arrayParks = [];
+
+function saveParks() {
+
+    var infowindow = new google.maps.InfoWindow({
+        content: ""
+    });
+
+    var xmlhttp = new XMLHttpRequest();
+
+    var url = "https://data.cityofchicago.org/api/views/wwy2-k7b3/rows.json?accessType=DOWNLOAD";
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+
+
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            //get the text content from the page response
+            var myArr = xmlhttp.responseText;
+            var text = myArr;
+            json = JSON.parse(text);
+
+            for (var i = 4; i < 581; i++) {
+                var dataArray = [];
+                //latitude - 0
+                dataArray.push(json.data[i][82][1]);
+                //longitude - 1
+                dataArray.push(json.data[i][82][2]);
+                //name - 2
+                dataArray.push(json.data[i][9]);
+
+                arrayParks.push(dataArray);
+
+            };
+
+        }
+    }
+
+}
+
+//show Parks
+
+function showParks() {
+
+    for (var i = 0; i < arrayParks.length; i++) {
+
+        var myLatLng = {
+            lat: parseFloat(arrayParks[i][0]),
+            lng: parseFloat(arrayParks[i][1])
+
+        };
+
+
+        var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title: arrayParks[i][2],
+            icon: 'images/univ.png'
+
+        });
+    };
+
+
+}
+
+//determine nearby parks
+
+function determineNearbyParks() {
+
+    saveParks();
+
+    for (var i = 0; i < arrayRentPlaces.length; i++) {
+        var nearby_parks = 0;
+
+        for (var j = 0; j < arrayParks.length; j++) {
+
+            var lat1 = arrayRentPlaces[i][0];
+            var lon1 = arrayRentPlaces[i][1];
+
+            var lat2 = parseFloat(arrayParks[j][0]);
+            var lon2 = parseFloat(arrayParks[j][1]);
+
+            var distance = Math.sqrt(Math.pow(lat2 - lat1, 2) + Math.pow(lon2 - lon1, 2));
+
+            if (distance <= 0.01) {
+                nearby_parks++;
+
+            }
+
+
+        };
+        arrayRentPlaces[i][11] = nearby_parks;
+
+    };
+
+};
+
+//determine value from parks field
+
+function determineNumberParks(value) {
+
+    switch (value) {
+    case "0":
+
+        break;
+    case "1":
+        return 5;
+        break;
+    case "2":
+        return 10;
+        break;
+    case "3":
+        return 15;
+        break;
+    case "4":
+        return 20;
+        break;
+    case "5":
+        return 25;
+        break;
+    case "6":
+        return 26;
+        break;
+
+    default:
+        break;
+
+    }
+
+}
+
+
+//determine the nearest police station to a rental place
+
+function determineNearestStation() {
+
+    savePoliceStations();
+
+
+    for (var i = 0; i < arrayRentPlaces.length; i++) {
+
+        var min_distance = 0;
+
+        for (var j = 0; j < arrayPoliceStations.length; j++) {
+
+            var lat1 = arrayRentPlaces[i][0];
+            var lon1 = arrayRentPlaces[i][1];
+
+            var lat2 = parseFloat(arrayPoliceStations[j][0]);
+            var lon2 = parseFloat(arrayPoliceStations[j][1]);
+
+            var distance = Math.sqrt(Math.pow(lat2 - lat1, 2) + Math.pow(lon2 - lon1, 2));
+
+            if (min_distance == 0) {
+                min_distance = distance;
+
+            } else {
+                if (distance < min_distance) {
+                    min_distance = distance;
+                }
+            }
+
+        };
+        arrayRentPlaces[i][12] = min_distance;
+
+    };
+
+
+};
+
+
+//determine value from Police Stations field
+
+function determineNumberStations(value) {
+
+    switch (value) {
+    case "0":
+
+        break;
+    case "1":
+        return 0.001;
+        break;
+    case "2":
+        return 0.005;
+        break;
+    case "3":
+        return 0.01;
+        break;
+    case "4":
+        return 0.015;
+        break;
+    case "5":
+        return 0.02;
+        break;
+    case "6":
+        return 0.03;
+        break;
+    case "7":
+        return 0.03001;
+        break;
+
+    default:
+        break;
+
+    }
+
+}
+
+
+//other variables
+var icon_index = "images/apt.png";

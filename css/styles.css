@@ -5,22 +5,47 @@ body.doc {
     background-color: white;
 }
 
+.cont {
+    min-width: 1270px;
+}
+
 @charset "UTF-8";
 @font-face {
     font-family: MODERNE SANS;
     src: url('../fonts/MODERNE SANS.TTF');
 }
 
+.glyphicon.glyphicon-time {
+    font-size: 60px;
+    color: crimson;
+}
+
+.glyphicon.glyphicon-list-alt {
+    font-size: 60px;
+    color: darkgreen;
+}
+
+.glyphicon.glyphicon-user {
+    font-size: 60px;
+    color: darkblue;
+}
+
+.glyphicon.glyphicon-thumbs-up {
+    font-size: 60px;
+    color: goldenrod
+}
+
 .glyphicon.glyphicon-education {
-    font-size: 80px;
+    font-size: 100px;
 }
 
 .glyphicon.glyphicon-home {
-    font-size: 60px;
+    font-size: 80px;
+    color: goldenrod;
 }
 
 .glyphicon.glyphicon-stats {
-    font-size: 60px;
+    font-size: 80px;
 }
 
 .glyphicon.glyphicon-usd {
@@ -37,6 +62,14 @@ body.doc {
 
 .glyphicon.glyphicon-road {
     font-size: 60px;
+}
+
+.glyphicon.glyphicon-tree-deciduous {
+    font-size: 60px;
+}
+
+.glyphicon.glyphicon-question-sign {
+    font-size: 80px;
 }
 
 .brown {
@@ -91,6 +124,18 @@ h1.text {
     margin-bottom: 40px;
 }
 
+h1.text2 {
+    font-family: MODERNE SANS;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: normal;
+    color: #cc0000;
+    text-align: center;
+    min-width: 20px;
+    max-width: 600px;
+    margin-bottom: 40px;
+}
+
 h1.subtext {
     font-family: MODERNE SANS;
     font-size: 30px;
@@ -120,7 +165,7 @@ h1.subtext3 {
     font-size: 30px;
     font-style: normal;
     font-weight: normal;
-    color: darkred;
+    color: #cc0000;
     text-align: center;
     min-width: 20px;
     max-width: 600px;
@@ -243,12 +288,12 @@ video.fillWidth {
     border-color: midnightblue;
 }
 
-#but5 {
-    background: saddlebrown;
-    border-color: saddlebrown;
+
+#but6 {
+    font-size: 30px;
+    margin-bottom: 80px;
+    font-family: MODERNE SANS;
 }
-
-
 
 #but3:hover {
     background: green;
@@ -265,7 +310,201 @@ video.fillWidth {
     margin: 0px;
 }
 
+#indicator2 {
+    display: none;
+}
+
 #indicator:hover {
+    color: red;
+    cursor: default;
+}
+
+#con1 {
+    width: 220px;
+}
+
+#con1:hover {
+    color: cornflowerblue;
+    cursor: default;
+}
+
+#con2:hover {
+    color: darkorange;
+    cursor: default;
+}
+
+#con3:hover {
+    color: green;
+    cursor: default;
+}
+
+#con4 {
+    width: 260px;
+}
+
+#con5 {
+    width: 220px;
+}
+
+#con5:hover {
+    color: crimson;
+    cursor: default;
+}
+
+#con6:hover {
+    color: darkgreen;
+    cursor: default;
+}
+
+#con7:hover {
+    color: darkblue;
+    cursor: default;
+}
+
+#con8 {
+    width: 260px;
+}
+
+#con8:hover {
+    width: 260px;
+    color: goldenrod;
+    cursor: default;
+}
+
+#content {
+    width: 400px;
+}
+
+#textmap {
+    font-size: 20px;
+}
+
+#textmap2 {
+    font-size: 15px;
+}
+
+#con4:hover {
+    width: 260px;
+    color: black;
+    cursor: default;
+}
+
+#img1 {
+    margin-bottom: 80px;
+}
+
+.titlestyle {
+    font-family: MODERNE SANS;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: normal;
     color: darkred;
-    cursor: pointer;
+    text-align: center;
+    min-width: 20px;
+    max-width: 600px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.textrandom {
+    font-family: MODERNE SANS;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: normal;
+    color: #000000;
+    text-align: center;
+    min-width: 20px;
+    max-width: 600px;
+    margin-top: 10px;
+}
+
+.subtextrandom {
+    font-family: MODERNE SANS;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: normal;
+    color: #000000;
+    text-align: center;
+    width: 1200px;
+    margin-top: 30px;
+}
+
+.titlestyle tit1 {
+    font-family: MODERNE SANS;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: normal;
+    color: black;
+    text-align: center;
+    min-width: 20px;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+.bubbleChart {
+    min-width: 100px;
+    max-width: 700px;
+    height: 700px;
+    margin-right: 10px;
+    margin-left: 10px;
+    float: left;
+}
+
+.bubbleChart svg {
+    background: white;
+}
+
+#info {
+    margin-left: 680px;
+}
+
+#info1 {
+    font-family: MODERNE SANS;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: normal;
+    color: #000000;
+    text-align: center;
+}
+
+.infosub {
+    font-family: MODERNE SANS;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: normal;
+    color: #cc0000;
+    text-align: left;
+}
+
+#infosub9 {
+    font-family: MODERNE SANS;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: normal;
+    color: red;
+    text-align: left;
+    width: 500px;
+    text-align: center;
+    margin-left: 25px;
+}
+
+#infosub9:hover {
+    color: crimson;
+    cursor: default;
+}
+
+#infosub ad {
+    color: #808080;
+}
+
+#info {
+    display: none;
+}
+
+#condition {
+    font-family: MODERNE SANS;
+    font-style: italic;
+    font-size: 10px;
+    width: 200px;
+    margin-right: 400px;
 }

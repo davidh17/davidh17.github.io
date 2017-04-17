@@ -1,7 +1,7 @@
 var arrayRentPlaces = [];
 
 
-//save renting options
+//save renting places
 function saveRentPlaces() {
 
     var infowindow = new google.maps.InfoWindow({
@@ -52,35 +52,53 @@ function saveRentPlaces() {
 
 };
 
-var shown = false;
+//display rental places on map
 
-//show rental sites on map
-function showRentPlaces() {
+function showRentPlaces(numberPlaces, iconMap) {
 
+    var infowindow = new google.maps.InfoWindow();
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 10,
+        center: new google.maps.LatLng(41.8708, -87.6505)
+    });
 
-    if (shown) {
-        return;
-    }
-    shown = true;
+    var marker1 = new google.maps.Marker({
+        position: new google.maps.LatLng(41.8708, -87.6505),
+        map: map,
+        title: 'C.S Dept U. of Illinois',
+        icon: "images/univ.png"
 
-    var numberOfMarkets = arrayRentPlaces.length;
+    });
 
-    for (var i = 0; i < numberOfMarkets; i++) {
-        var myLatLng = {
-            lat: arrayRentPlaces[i][0],
-            lng: arrayRentPlaces[i][1]
-
-        };
-
-
+    function placeMarker(loc) {
+        var latLng = new google.maps.LatLng(loc[0], loc[1]);
         var marker = new google.maps.Marker({
-            position: myLatLng,
+            position: latLng,
             map: map,
-            title: arrayRentPlaces[i][3],
-            icon: 'images/apt.png'
+            icon: iconMap,
+            title: loc[3]
 
+        });
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.close(); // Close previously opened infowindow
+            infowindow.setContent('<div id="content">' +
+                '<div id="siteNotice">' +
+                '</div>' + '<div>' +
+                '<img src="images/h1.png" width="50px">' + '</div>' +
+                '<h1 class="subtext2" id="textmap">' + loc[3] + '</h1>' +
+                '<div id="bodyContent">' +
+                '<p class="titlestyle">' + 'Property Manager: ' + '<tit1>' + loc[2] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Rent Price: ' + '<tit1>' + '<b>' + '$' + '</b>' + loc[4] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Bedrooms: ' + '<tit1>' + loc[5] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Baths: ' + '<tit1>' + loc[6] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Area: ' + '<tit1>' + loc[7] + ' sqft' + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Contact number: ' + '<tit1>' + loc[8] + '</tit1>' + '</p>' + '</div>' +
+                '</div>');
+            infowindow.open(map, marker);
         });
     }
 
+    // ITERATE ALL LOCATIONS
+
+
+    for (var i = 0; i < numberPlaces; i++) {
+        placeMarker(arrayRentPlaces[i]);
+    }
 
 }
+google.maps.event.addDomListener(window, 'load', initGoogleMap);

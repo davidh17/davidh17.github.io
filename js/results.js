@@ -2,6 +2,8 @@
 
 var fieldContent;
 
+//determine if query is by safety level or price
+
 function showResults() {
 
     fieldContent = document.getElementById("Ultra").value;
@@ -19,12 +21,14 @@ function showResults() {
     } else if (fieldContent == 2) {
 
 
-        location.href = "price_query.html#map";
+        location.href = "price_query.html#indicator";
 
     }
 
 
 }
+
+//display the safest rental places according to the number requested by the user
 
 function showSafety() {
 
@@ -32,11 +36,9 @@ function showSafety() {
 
     changeText2('but5');
 
-    //initMap();
-    // alert(fieldContent);
-
     switch (fieldContent) {
     case "0":
+        alert("Please enter the number of rental sites you want to search in the field");
 
         break;
     case "1":
@@ -74,12 +76,13 @@ function showSafety() {
     }
 }
 
-var arrayDistance = [];
 
 //determine the rental places in a range of distance to University of Illinois
+
+var arrayDistance = [];
+
 function determineDistance() {
 
-    saveRentPlaces();
 
     saveDistance();
 
@@ -123,7 +126,7 @@ function determineDistance() {
         distanceSearched = 0.06;
         break;
     case "10":
-        distanceSearched = 0.06001;
+        distanceSearched = 10;
         break;
 
     default:
@@ -134,37 +137,55 @@ function determineDistance() {
 
     for (var i = 0; i < 5 * parseInt(fieldContent); i++) {
 
-        if (distanceSearched >= 0.005 && distanceSearched <= 0.06) {
 
 
-            if (arrayRentPlaces[i][10] <= distanceSearched) {
-                arrayDistance.push(i);
-            }
-        } else {
-
-            if (arrayRentPlaces[i][10] > distanceSearched) {
-                arrayDistance.push(i);
-            }
+        if (arrayRentPlaces[i][10] <= distanceSearched) {
+            arrayDistance.push(i);
         }
     }
 
 }
 
+//realize a whole query having as reference the criterion of safety and with different filters that user can realize
+
+var flag = true;
+
 
 function safetyQuery() {
 
+
+    fieldContentSites = document.getElementById("Ultra2").value;
     fieldContentDistance = document.getElementById("Ultra3").value;
+    fieldContentParks = document.getElementById("Ultra5").value;
+    fieldContentStations = document.getElementById("Ultra6").value;
+
+    if (fieldContentSites == "0") {
+        alert("Please enter the number of rental sites you want to search in the top field");
+        return;
+    }
+
+
 
     if (fieldContentDistance == "0") {
-        showSafety();
+        alert("Please fill in the required field");
         return;
     }
 
 
     changeText2('but5');
 
-    determineDistance();
     initMap();
+    determineDistance();
+
+    if (flag) {
+        determineNearbyParks();
+        determineNearestStation();
+    }
+
+    flag = false;
+
+
+
 
     var copy = arrayDistance.length;
     fieldContentTraffic = document.getElementById("Ultra4").value;
@@ -174,6 +195,18 @@ function safetyQuery() {
     if (fieldContentTraffic != "0") {
         var speed = determineSpeed(fieldContentTraffic);
     }
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker1 = new google.maps.Marker({
+        position: new google.maps.LatLng(41.8708, -87.6505),
+        map: map,
+        title: 'C.S Dept U. of Illinois',
+        icon: "images/univ.png"
+
+    });
+
+
 
     for (var i = 0; i < copy; i++) {
 
@@ -220,21 +253,80 @@ function safetyQuery() {
 
         }
 
-        var myLatLng = {
-            lat: arrayRentPlaces[index][0],
-            lng: arrayRentPlaces[index][1]
+        if (fieldContentParks != "0") {
 
-        };
+            var a;
+
+            var numberParks = determineNumberParks(fieldContentParks);
+
+            if (numberParks >= 5 && numberParks <= 25) {
 
 
 
-        var marker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            title: arrayRentPlaces[index][3],
-            icon: 'images/apt-sf.png'
+                if (arrayRentPlaces[i][11] >= numberParks - 5 && arrayRentPlaces[i][11] <= numberParks) {
+                    a = true;
+                } else {
+                    continue;
+                }
 
-        });
+            } else {
+                if (arrayRentPlaces[i][11] > numberParks) {
+                    a = true;
+                } else {
+                    continue;
+                }
+            }
+        }
+
+
+        if (fieldContentStations != "0") {
+
+            var b;
+
+            var numberStations = determineNumberStations(fieldContentStations);
+
+            if (numberStations >= 0.001 && numberStations <= 0.03) {
+
+
+
+                if (arrayRentPlaces[i][12] <= numberStations) {
+                    b = true;
+                } else {
+                    continue;
+                }
+
+            }
+        }
+
+
+
+        function placeMarker(loc) {
+            var latLng = new google.maps.LatLng(loc[0], loc[1]);
+            var marker = new google.maps.Marker({
+                position: latLng,
+                map: map,
+                icon: "images/apt-sf.png",
+                title: loc[3]
+
+            });
+            google.maps.event.addListener(marker, 'click', function () {
+                infowindow.close(); // Close previously opened infowindow
+                infowindow.setContent('<div id="content">' +
+                    '<div id="siteNotice">' +
+                    '</div>' + '<div>' +
+                    '<img src="images/h1.png" width="50px">' + '</div>' +
+                    '<h1 class="subtext2" id="textmap">' + loc[3] + '</h1>' +
+                    '<div id="bodyContent">' +
+                    '<p class="titlestyle">' + 'Property Manager: ' + '<tit1>' + loc[2] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Rent Price: ' + '<tit1>' + '<b>' + '$' + '</b>' + loc[4] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Bedrooms: ' + '<tit1>' + loc[5] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Baths: ' + '<tit1>' + loc[6] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Area: ' + '<tit1>' + loc[7] + ' sqft' + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Contact number: ' + '<tit1>' + loc[8] + '</tit1>' + '</p>' + '</div>' +
+                    '</div>');
+                infowindow.open(map, marker);
+            });
+        }
+
+        placeMarker(arrayRentPlaces[index]);
+
+
+
 
     }
 
@@ -242,6 +334,8 @@ function safetyQuery() {
 
 
 }
+
+//display cheapest rental places on map according to the number requested by the user
 
 function showProfitability() {
 
@@ -252,7 +346,7 @@ function showProfitability() {
 
     switch (fieldContent) {
     case "0":
-
+        alert("Please enter the number of rental sites you want to search in the field");
         break;
     case "1":
         initMap();
@@ -289,22 +383,38 @@ function showProfitability() {
     }
 }
 
+//realize a whole query having as reference the criterion of profitability (rental price) and with different filters that user can realize
 
 function profitabilityQuery() {
 
+    fieldContentSites = document.getElementById("Ultra2").value;
     fieldContentDistance = document.getElementById("Ultra3").value;
+    fieldContentParks = document.getElementById("Ultra5").value;
+    fieldContentStations = document.getElementById("Ultra6").value;
+
+
+    if (fieldContentSites == "0") {
+        alert("Please enter the number of rental sites you want to search in the top field");
+        return;
+    }
 
     if (fieldContentDistance == "0") {
-        showProfitability();
+        alert("Please fill in the required field");
         return;
     }
 
 
     changeText2('but5');
-
+    initMap();
     determineDistance();
 
-    initMap();
+    if (flag) {
+        determineNearbyParks();
+        determineNearestStation();
+    }
+    flag = false;
+
+
 
     var copy = arrayDistance.length;
     fieldContentTraffic = document.getElementById("Ultra4").value;
@@ -314,6 +424,20 @@ function profitabilityQuery() {
     if (fieldContentTraffic != "0") {
         var speed = determineSpeed(fieldContentTraffic);
     }
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker1 = new google.maps.Marker({
+        position: new google.maps.LatLng(41.8708, -87.6505),
+        map: map,
+        title: 'C.S Dept U. of Illinois',
+        icon: "images/univ.png"
+
+    });
+
+
+
+
 
     for (var i = 0; i < copy; i++) {
 
@@ -360,25 +484,88 @@ function profitabilityQuery() {
 
         }
 
-        var myLatLng = {
-            lat: arrayRentPlaces[index][0],
-            lng: arrayRentPlaces[index][1]
+        if (fieldContentParks != "0") {
 
-        };
+            var a;
+
+            var numberParks = determineNumberParks(fieldContentParks);
+
+            if (numberParks >= 5 && numberParks <= 25) {
 
 
 
-        var marker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            title: arrayRentPlaces[index][3],
-            icon: 'images/apt-pr.png'
+                if (arrayRentPlaces[i][11] >= numberParks - 5 && arrayRentPlaces[i][11] <= numberParks) {
+                    a = true;
+                } else {
+                    continue;
+                }
 
-        });
+            } else {
+                if (arrayRentPlaces[i][11] > numberParks) {
+                    a = true;
+                } else {
+                    continue;
+                }
+            }
+        }
+
+
+        if (fieldContentStations != "0") {
+
+            var b;
+
+            var numberStations = determineNumberStations(fieldContentStations);
+
+            if (numberStations >= 0.001 && numberStations <= 0.03) {
+
+
+
+                if (arrayRentPlaces[i][12] <= numberStations) {
+                    b = true;
+                } else {
+                    continue;
+                }
+
+            }
+        }
+
+
+
+        function placeMarker(loc) {
+            var latLng = new google.maps.LatLng(loc[0], loc[1]);
+            var marker = new google.maps.Marker({
+                position: latLng,
+                map: map,
+                icon: "images/apt-pr.png",
+                title: loc[3]
+
+            });
+            google.maps.event.addListener(marker, 'click', function () {
+                infowindow.close(); // Close previously opened infowindow
+                infowindow.setContent('<div id="content">' +
+                    '<div id="siteNotice">' +
+                    '</div>' + '<div>' +
+                    '<img src="images/h1.png" width="50px">' + '</div>' +
+                    '<h1 class="subtext2" id="textmap">' + loc[3] + '</h1>' +
+                    '<div id="bodyContent">' +
+                    '<p class="titlestyle">' + 'Property Manager: ' + '<tit1>' + loc[2] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Rent Price: ' + '<tit1>' + '<b>' + '$' + '</b>' + loc[4] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Bedrooms: ' + '<tit1>' + loc[5] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Baths: ' + '<tit1>' + loc[6] + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Area: ' + '<tit1>' + loc[7] + ' sqft' + '</tit1>' + '</p>' + '<p class="titlestyle">' + 'Contact number: ' + '<tit1>' + loc[8] + '</tit1>' + '</p>' + '</div>' +
+                    '</div>');
+                infowindow.open(map, marker);
+            });
+        }
+
+        placeMarker(arrayRentPlaces[index]);
 
     }
 
     arrayDistance = [];
 
 
+}
+
+
+//function for refresh the current page
+
+function reFresh() {
+    location.reload(true);
 }
