@@ -9,7 +9,7 @@ function saveRentPlaces() {
     });
 
     var xmlhttp = new XMLHttpRequest();
-    var url = "rentalplaces.json"; //created file (json) for rental places (source:Zillow)
+    var url = "https://raw.githubusercontent.com/goldironhack/2017-Purdue-UNAL-IronHack-davidh17/master/rentalplaces.json?token=ANBQdB2ugH1IIoP560USFGjOUHc5EPn4ks5ZBo7LwA%3D%3D"; //created file (json) for rental places (source:Zillow)
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 
@@ -22,7 +22,7 @@ function saveRentPlaces() {
             var text = myArr;
             json = JSON.parse(text);
 
-            for (var i = 0; i < 30; i++) {
+            for (var i = 0; i < 94; i++) {
                 var dataLine = [];
                 //latitude - 0
                 dataLine.push(json.data[i][0]);
@@ -55,6 +55,8 @@ function saveRentPlaces() {
 //display rental places on map
 
 function showRentPlaces(numberPlaces, iconMap) {
+
+    // alert(arrayRentPlaces.length);
 
     var infowindow = new google.maps.InfoWindow();
     var map = new google.maps.Map(document.getElementById('map'), {

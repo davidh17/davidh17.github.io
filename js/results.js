@@ -43,23 +43,23 @@ function showSafety() {
         break;
     case "1":
         initMap();
-        showSafestPlaces(5);
+        showSafestPlaces(1);
         break;
     case "2":
         initMap();
-        showSafestPlaces(10);
+        showSafestPlaces(5);
         break;
     case "3":
         initMap();
-        showSafestPlaces(15);
+        showSafestPlaces(10);
         break;
     case "4":
         initMap();
-        showSafestPlaces(20);
+        showSafestPlaces(15);
         break;
     case "5":
         initMap();
-        showSafestPlaces(25);
+        showSafestPlaces(20);
         break;
     case "6":
         initMap();
@@ -93,37 +93,38 @@ function determineDistance() {
 
 
     var distanceSearched;
+    var numberSites;
 
     switch (fieldContentIn) {
     case "0":
 
         break;
     case "1":
-        distanceSearched = 0.005;
-        break;
-    case "2":
         distanceSearched = 0.01;
         break;
-    case "3":
-        distanceSearched = 0.015;
-        break;
-    case "4":
+    case "2":
         distanceSearched = 0.02;
         break;
-    case "5":
-        distanceSearched = 0.025;
-        break;
-    case "6":
-        distanceSearched = 0.03;
-        break;
-    case "7":
+    case "3":
         distanceSearched = 0.04;
         break;
-    case "8":
+    case "4":
         distanceSearched = 0.05;
         break;
-    case "9":
+    case "5":
         distanceSearched = 0.06;
+        break;
+    case "6":
+        distanceSearched = 0.07;
+        break;
+    case "7":
+        distanceSearched = 0.08;
+        break;
+    case "8":
+        distanceSearched = 0.09;
+        break;
+    case "9":
+        distanceSearched = 0.11;
         break;
     case "10":
         distanceSearched = 10;
@@ -134,8 +135,39 @@ function determineDistance() {
 
     }
 
+    switch (fieldContent) {
+    case "0":
 
-    for (var i = 0; i < 5 * parseInt(fieldContent); i++) {
+        break;
+    case "1":
+        numberSites = 1;
+        break;
+    case "2":
+        numberSites = 5;
+        break;
+    case "3":
+        numberSites = 10;
+        break;
+    case "4":
+        numberSites = 15;
+        break;
+    case "5":
+        numberSites = 20;
+        break;
+    case "6":
+        numberSites = 30;
+        break;
+    case "7":
+        numberSites = 40;
+        break;
+
+    default:
+        break;
+
+    }
+
+
+    for (var i = 0; i < numberSites; i++) {
 
 
 
@@ -259,24 +291,26 @@ function safetyQuery() {
 
             var numberParks = determineNumberParks(fieldContentParks);
 
-            if (numberParks >= 5 && numberParks <= 25) {
+            if (numberParks >= 5 && numberParks <= 26) {
 
 
 
-                if (arrayRentPlaces[i][11] >= numberParks - 5 && arrayRentPlaces[i][11] <= numberParks) {
+                if (arrayRentPlaces[index][11] >= numberParks - 5 && arrayRentPlaces[index][11] < numberParks) {
                     a = true;
                 } else {
                     continue;
                 }
 
             } else {
-                if (arrayRentPlaces[i][11] > numberParks) {
+                if (arrayRentPlaces[index][11] > numberParks) {
                     a = true;
                 } else {
                     continue;
                 }
             }
         }
+
+
 
 
         if (fieldContentStations != "0") {
@@ -289,7 +323,7 @@ function safetyQuery() {
 
 
 
-                if (arrayRentPlaces[i][12] <= numberStations) {
+                if (arrayRentPlaces[index][12] <= numberStations) {
                     b = true;
                 } else {
                     continue;
@@ -350,23 +384,23 @@ function showProfitability() {
         break;
     case "1":
         initMap();
-        showCheapestPlaces(5);
+        showCheapestPlaces(1);
         break;
     case "2":
         initMap();
-        showCheapestPlaces(10);
+        showCheapestPlaces(5);
         break;
     case "3":
         initMap();
-        showCheapestPlaces(15);
+        showCheapestPlaces(10);
         break;
     case "4":
         initMap();
-        showCheapestPlaces(20);
+        showCheapestPlaces(15);
         break;
     case "5":
         initMap();
-        showCheapestPlaces(25);
+        showCheapestPlaces(20);
         break;
     case "6":
         initMap();
@@ -490,18 +524,18 @@ function profitabilityQuery() {
 
             var numberParks = determineNumberParks(fieldContentParks);
 
-            if (numberParks >= 5 && numberParks <= 25) {
+            if (numberParks >= 5 && numberParks <= 26) {
 
 
 
-                if (arrayRentPlaces[i][11] >= numberParks - 5 && arrayRentPlaces[i][11] <= numberParks) {
+                if (arrayRentPlaces[index][11] >= numberParks - 5 && arrayRentPlaces[index][11] < numberParks) {
                     a = true;
                 } else {
                     continue;
                 }
 
             } else {
-                if (arrayRentPlaces[i][11] > numberParks) {
+                if (arrayRentPlaces[index][11] > numberParks) {
                     a = true;
                 } else {
                     continue;

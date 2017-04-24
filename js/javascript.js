@@ -245,7 +245,7 @@ function showSafestPlaces(numberPlaces) {
     for (var i = 0; i < numberPlaces; i++) {
         placeMarker(arrayRentPlaces[i]);
     }
-
+    //alert(arrayRentPlaces);
 
 }
 

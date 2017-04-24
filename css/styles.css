@@ -56,10 +56,6 @@ body.doc {
     font-size: 60px;
 }
 
-.glyphicon.glyphicon-heart {
-    font-size: 60px;
-}
-
 .glyphicon.glyphicon-road {
     font-size: 60px;
 }
@@ -288,7 +284,6 @@ video.fillWidth {
     border-color: midnightblue;
 }
 
-
 #but6 {
     font-size: 30px;
     margin-bottom: 80px;
@@ -312,6 +307,7 @@ video.fillWidth {
 
 #indicator2 {
     display: none;
+    margin: 0px;
 }
 
 #indicator:hover {
@@ -425,7 +421,7 @@ video.fillWidth {
     font-weight: normal;
     color: #000000;
     text-align: center;
-    width: 1200px;
+    width: 700px;
     margin-top: 30px;
 }
 
@@ -507,4 +503,31 @@ video.fillWidth {
     font-size: 10px;
     width: 200px;
     margin-right: 400px;
+}
+
+#infosub0 {
+    font-family: MODERNE SANS;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: normal;
+    color: #808080;
+    text-align: left;
+    width: 600px;
+    text-align: center;
+    display: none;
+    margin-top: 0px;
+    margin: 0px;
+}
+
+#infosub0:hover {
+    color: black;
+    cursor: default;
+}
+
+#traffic {
+    font-size: 10px;
+    width: 400px;
+    margin-top: 5px;
+    margin-bottom: 0pc;
+    
 }
