@@ -9,7 +9,7 @@ function saveRentPlaces() {
     });
 
     var xmlhttp = new XMLHttpRequest();
-    var url = "https://raw.githubusercontent.com/goldironhack/2017-Purdue-UNAL-IronHack-davidh17/master/rentalplaces.json?token=ANBQdB2ugH1IIoP560USFGjOUHc5EPn4ks5ZBo7LwA%3D%3D"; //created file (json) for rental places (source:Zillow)
+    var url = "https://raw.githubusercontent.com/goldironhack/2017-Purdue-UNAL-IronHack-davidh17/master/rentalplaces.json?token=ANBQdL6PypHpajmkzfA9lveafU0MM1jFks5ZBpgWwA%3D%3D"; //created file (json) for rental places (source:Zillow)
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 
